@@ -265,6 +265,28 @@ namespace AsistenciaApp.Forms
             dgvRegistros.Columns["Date"].HeaderText = "Fecha";
             dgvRegistros.Columns["Present"].HeaderText = "Presente";
             dgvRegistros.Columns["Late"].HeaderText = "Tarde";
+
+            foreach (DataGridViewRow row in dgvRegistros.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                bool presente = Convert.ToBoolean(row.Cells["Present"].Value);
+                bool tarde = Convert.ToBoolean(row.Cells["Late"].Value);
+
+                if (presente)
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightGreen; // Verde claro
+                }
+                else if (tarde)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Khaki; // Amarillo claro
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightCoral; // Rojo claro
+                }
+            }
+
         }
 
 
