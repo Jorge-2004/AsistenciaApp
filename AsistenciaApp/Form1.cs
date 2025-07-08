@@ -17,7 +17,8 @@ namespace AsistenciaApp.Forms
         public MainForm()
         {
             InitializeComponent();
-          
+            attendanceService = new AsistenciaServicio();
+
             dgvRegistros.AutoGenerateColumns = true;
             ActualizarVista();
         }
@@ -29,6 +30,11 @@ namespace AsistenciaApp.Forms
                 MessageBox.Show("Debe completar al menos el nombre y el DNI.");
                 return;
             }
+            if (!txtDNI.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("El DNI solo debe contener números.", "DNI inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var emp = new Empleados(
                 txtNombre.Text.Trim(),
@@ -38,7 +44,8 @@ namespace AsistenciaApp.Forms
                 txtDNI.Text.Trim(),
                 txtArea.Text.Trim(),
                 txtCargo.Text.Trim(),
-                txtCorreo.Text.Trim()
+                txtCorreo.Text.Trim(),
+                txtObservaciones.Text.Trim()
             );
 
             attendanceService.AddRecord(emp);
@@ -64,7 +71,8 @@ namespace AsistenciaApp.Forms
                 DNI = txtDNI.Text.Trim(),
                 Area = txtArea.Text.Trim(),
                 Position = txtCargo.Text.Trim(),
-                Email = txtCorreo.Text.Trim()
+                Email = txtCorreo.Text.Trim(),
+                Observaciones = txtObservaciones.Text.Trim()
             };
 
             attendanceService.UpdateRecord(selectedId, emp);
@@ -109,7 +117,7 @@ namespace AsistenciaApp.Forms
                                 {
                                     string linea = $"ID: {row.Cells["Id"].Value}, Nombre: {row.Cells["Name"].Value}, DNI: {row.Cells["DNI"].Value}, " +
                                                    $"�rea: {row.Cells["Area"].Value}, Cargo: {row.Cells["Position"].Value}, Correo: {row.Cells["Email"].Value}, " +
-                                                   $"Fecha: {row.Cells["Date"].Value}, Presente: {row.Cells["Present"].Value}, Tarde: {row.Cells["Late"].Value}";
+                                                   $"Fecha: {row.Cells["Date"].Value}, Presente: {row.Cells["Present"].Value}, Tarde: {row.Cells["Late"].Value},Observaciones: {row.Cells["Observaciones"].Value}";
                                     sw.WriteLine(linea);
                                 }
                             }
@@ -159,7 +167,8 @@ namespace AsistenciaApp.Forms
                                         $"{row.Cells["DNI"].Value};" +
                                         $"{row.Cells["Area"].Value};" +
                                         $"{row.Cells["Position"].Value};" +
-                                        $"{row.Cells["Email"].Value}";
+                                        $"{row.Cells["Email"].Value};"+
+                                        $"{row.Cells["Observaciones"].Value}";
 
                                     sw.WriteLine(linea);
                                 }
@@ -175,7 +184,47 @@ namespace AsistenciaApp.Forms
                 }
             }
         }
+        private void btnUltimos_Click(object sender, EventArgs e)
+        {
+            var data = attendanceService.GetRecords()
+                .OrderByDescending(e => e.Date)
+                .Take(10)
+                .ToList();
 
+            dgvRegistros.DataSource = null;
+            dgvRegistros.DataSource = data;
+
+            lblTotal.Text = "Mostrando últimos 10 registros";
+
+            if (dgvRegistros.Columns.Contains("Observaciones"))
+                dgvRegistros.Columns["Observaciones"].HeaderText = "Observaciones";
+        }
+
+        private void btnDuplicar_Click(object sender, EventArgs e)
+        {
+            if (selectedId == -1)
+            {
+                MessageBox.Show("Seleccione un registro para duplicar.");
+                return;
+            }
+
+            var duplicado = new Empleados
+            {
+                Name = txtNombre.Text.Trim(),
+                DNI = txtDNI.Text.Trim(),
+                Area = txtArea.Text.Trim(),
+                Position = txtCargo.Text.Trim(),
+                Email = txtCorreo.Text.Trim(),
+                Date = DateTime.Now, // Se actualiza a la fecha actual
+                Present = chkPresente.Checked,
+                Late = chkTarde.Checked,
+                Observaciones = txtObservaciones.Text.Trim()
+            };
+
+            attendanceService.AgregarRegistro(duplicado);
+            ActualizarVista();
+            MessageBox.Show("Registro duplicado con la fecha actual.");
+        }
 
         private void LimpiarCampos()
         {
@@ -185,6 +234,7 @@ namespace AsistenciaApp.Forms
             txtArea.Clear();
             txtCargo.Clear();
             txtCorreo.Clear();
+            txtObservaciones.Clear();
             chkPresente.Checked = false;
             chkTarde.Checked = false;
             dtpFecha.Value = DateTime.Now;
@@ -223,6 +273,13 @@ namespace AsistenciaApp.Forms
 
             lblTotal.Text = $"Total registros: {data.Count}";
 
+            // Contadores de asistencia
+            int presentes = data.Count(e => e.Present);
+            int faltaron = data.Count(e => !e.Present && !e.Late);
+
+            lblPresentes.Text = $"Presentes: {presentes}";
+            lblFaltaron.Text = $"Faltaron: {faltaron}";
+
             // Actualizar ComboBox nombres
             var nombres = attendanceService.GetRecords().Select(e => e.Name).Distinct().ToList();
 
@@ -250,6 +307,8 @@ namespace AsistenciaApp.Forms
             dgvRegistros.Columns["Date"].HeaderText = "Fecha";
             dgvRegistros.Columns["Present"].HeaderText = "Presente";
             dgvRegistros.Columns["Late"].HeaderText = "Tarde";
+            dgvRegistros.Columns["Observaciones"].HeaderText = "Observaciones";
+
         }
 
 
@@ -264,6 +323,7 @@ namespace AsistenciaApp.Forms
                 txtCargo.Text = emp.Position;
                 txtCorreo.Text = emp.Email;
                 dtpFecha.Value = emp.Date;
+                txtObservaciones.Text = emp.Observaciones;
                 chkPresente.Checked = emp.Present;
                 chkTarde.Checked = emp.Late;
             }

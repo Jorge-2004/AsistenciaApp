@@ -31,6 +31,7 @@ namespace AsistenciaApp.Services
                 emp.Area = updatedEmp.Area;
                 emp.Position = updatedEmp.Position;
                 emp.Email = updatedEmp.Email;
+                emp.Observaciones = updatedEmp.Observaciones;
             }
         }
 
@@ -44,6 +45,11 @@ namespace AsistenciaApp.Services
         public List<Empleados> GetRecords()
         {
             return employees.ToList();
+        }
+
+        public void AgregarRegistro(Empleados duplicado)
+        {
+            throw new NotImplementedException();
         }
     }
 }
