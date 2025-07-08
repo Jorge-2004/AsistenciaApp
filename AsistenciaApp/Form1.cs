@@ -17,7 +17,8 @@ namespace AsistenciaApp.Forms
         public MainForm()
         {
             InitializeComponent();
-          
+            attendanceService = new AsistenciaServicio();
+
             dgvRegistros.AutoGenerateColumns = true;
             ActualizarVista();
         }
@@ -38,7 +39,8 @@ namespace AsistenciaApp.Forms
                 txtDNI.Text.Trim(),
                 txtArea.Text.Trim(),
                 txtCargo.Text.Trim(),
-                txtCorreo.Text.Trim()
+                txtCorreo.Text.Trim(),
+                txtObservaciones.Text.Trim()
             );
 
             attendanceService.AddRecord(emp);
@@ -64,7 +66,8 @@ namespace AsistenciaApp.Forms
                 DNI = txtDNI.Text.Trim(),
                 Area = txtArea.Text.Trim(),
                 Position = txtCargo.Text.Trim(),
-                Email = txtCorreo.Text.Trim()
+                Email = txtCorreo.Text.Trim(),
+                Observaciones = txtObservaciones.Text.Trim()
             };
 
             attendanceService.UpdateRecord(selectedId, emp);
@@ -185,6 +188,7 @@ namespace AsistenciaApp.Forms
             txtArea.Clear();
             txtCargo.Clear();
             txtCorreo.Clear();
+            txtObservaciones.Clear();
             chkPresente.Checked = false;
             chkTarde.Checked = false;
             dtpFecha.Value = DateTime.Now;
@@ -247,6 +251,7 @@ namespace AsistenciaApp.Forms
             dgvRegistros.Columns["Area"].HeaderText = "Área";
             dgvRegistros.Columns["Position"].HeaderText = "Cargo";
             dgvRegistros.Columns["Email"].HeaderText = "Correo";
+            dgvRegistros.Columns["Observaciones"].HeaderText = "Observaciones";
             dgvRegistros.Columns["Date"].HeaderText = "Fecha";
             dgvRegistros.Columns["Present"].HeaderText = "Presente";
             dgvRegistros.Columns["Late"].HeaderText = "Tarde";
@@ -263,6 +268,7 @@ namespace AsistenciaApp.Forms
                 txtArea.Text = emp.Area;
                 txtCargo.Text = emp.Position;
                 txtCorreo.Text = emp.Email;
+                txtObservaciones.Text = emp.Observaciones;
                 dtpFecha.Value = emp.Date;
                 chkPresente.Checked = emp.Present;
                 chkTarde.Checked = emp.Late;

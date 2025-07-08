@@ -19,6 +19,7 @@
             txtArea = new TextBox();
             txtCargo = new TextBox();
             txtCorreo = new TextBox();
+            txtObservaciones = new TextBox();
             dtpFecha = new DateTimePicker();
             chkPresente = new CheckBox();
             chkTarde = new CheckBox();
@@ -41,7 +42,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(12, 203);
+            txtNombre.Location = new Point(15, 175);
             txtNombre.Name = "txtNombre";
             txtNombre.PlaceholderText = "Nombre";
             txtNombre.Size = new Size(311, 27);
@@ -49,7 +50,7 @@
             // 
             // txtDNI
             // 
-            txtDNI.Location = new Point(329, 203);
+            txtDNI.Location = new Point(332, 175);
             txtDNI.Name = "txtDNI";
             txtDNI.PlaceholderText = "DNI";
             txtDNI.Size = new Size(186, 27);
@@ -57,7 +58,7 @@
             // 
             // txtArea
             // 
-            txtArea.Location = new Point(521, 203);
+            txtArea.Location = new Point(524, 175);
             txtArea.Name = "txtArea";
             txtArea.PlaceholderText = "Área";
             txtArea.Size = new Size(222, 27);
@@ -65,7 +66,7 @@
             // 
             // txtCargo
             // 
-            txtCargo.Location = new Point(761, 203);
+            txtCargo.Location = new Point(764, 175);
             txtCargo.Name = "txtCargo";
             txtCargo.PlaceholderText = "Cargo";
             txtCargo.Size = new Size(252, 27);
@@ -73,11 +74,19 @@
             // 
             // txtCorreo
             // 
-            txtCorreo.Location = new Point(1037, 203);
+            txtCorreo.Location = new Point(1040, 175);
             txtCorreo.Name = "txtCorreo";
             txtCorreo.PlaceholderText = "Correo";
             txtCorreo.Size = new Size(254, 27);
             txtCorreo.TabIndex = 4;
+            // 
+            // txtObservaciones
+            // 
+            txtObservaciones.Location = new Point(12, 208);
+            txtObservaciones.Name = "txtObservaciones";
+            txtObservaciones.PlaceholderText = "Observaciones";
+            txtObservaciones.Size = new Size(734, 27);
+            txtObservaciones.TabIndex = 0;
             // 
             // dtpFecha
             // 
@@ -189,7 +198,6 @@
             dgvRegistros.Size = new Size(1223, 323);
             dgvRegistros.TabIndex = 16;
             dgvRegistros.SelectionChanged += dgvRegistros_SelectionChanged;
-            
             // 
             // lblTotal
             // 
@@ -234,6 +242,7 @@
             AutoSize = true;
             BackColor = SystemColors.Window;
             ClientSize = new Size(1329, 689);
+            Controls.Add(txtObservaciones);
             Controls.Add(btnReporteTXT);
             Controls.Add(btnReporteCSV);
             Controls.Add(pictureBox2);
@@ -264,12 +273,12 @@
             PerformLayout();
         }
 
-
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtDNI;
         private System.Windows.Forms.TextBox txtArea;
         private System.Windows.Forms.TextBox txtCargo;
         private System.Windows.Forms.TextBox txtCorreo;
+        private System.Windows.Forms.TextBox txtObservaciones;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.CheckBox chkPresente;
         private System.Windows.Forms.CheckBox chkTarde;
