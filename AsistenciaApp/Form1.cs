@@ -17,7 +17,8 @@ namespace AsistenciaApp.Forms
         public MainForm()
         {
             InitializeComponent();
-          
+            attendanceService = new AsistenciaServicio();
+
             dgvRegistros.AutoGenerateColumns = true;
             ActualizarVista();
         }
@@ -29,6 +30,20 @@ namespace AsistenciaApp.Forms
                 MessageBox.Show("Debe completar al menos el nombre y el DNI.");
                 return;
             }
+
+            // Validación: no permitir el mismo DNI para la misma fecha
+            var existentes = attendanceService.GetRecords();
+            bool existeMismoDNIHoy = existentes.Any(emp =>
+                emp.DNI == txtDNI.Text.Trim() &&
+                emp.Date.Date == dtpFecha.Value.Date);
+
+            if (existeMismoDNIHoy)
+            {
+                MessageBox.Show("Ya existe un registro con ese DNI en esta fecha.", "DNI duplicado por fecha", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
 
             var emp = new Empleados(
                 txtNombre.Text.Trim(),
