@@ -27,9 +27,14 @@ namespace AsistenciaApp.Forms
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtDNI.Text))
+            // Validar que todos los campos estén llenos
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                string.IsNullOrWhiteSpace(txtDNI.Text) ||
+                string.IsNullOrWhiteSpace(txtArea.Text) ||
+                string.IsNullOrWhiteSpace(txtCargo.Text) ||
+                string.IsNullOrWhiteSpace(txtCorreo.Text))
             {
-                MessageBox.Show("Debe completar al menos el nombre y el DNI.");
+                MessageBox.Show("Todos los campos (Nombre, DNI, Área, Cargo y Correo) deben estar completos.", "Campos vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -44,8 +49,6 @@ namespace AsistenciaApp.Forms
                 MessageBox.Show("Ya existe un registro con ese DNI en esta fecha.", "DNI duplicado por fecha", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-
 
             var emp = new Empleados(
                 txtNombre.Text.Trim(),
