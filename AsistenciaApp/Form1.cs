@@ -339,5 +339,26 @@ namespace AsistenciaApp.Forms
                 chkPresente.Checked = false;
             }
         }
+
+        private void btnResumenDiario_Click(object sender, EventArgs e)
+        {
+            var hoy = DateTime.Today;
+            var registrosHoy = attendanceService.GetRecords()
+                .Where(e => e.Date.Date == hoy).ToList();
+
+            int presentes = registrosHoy.Count(e => e.Present);
+            int tarde = registrosHoy.Count(e => e.Late);
+            int ausentes = registrosHoy.Count(e => !e.Present && !e.Late);
+
+            MessageBox.Show(
+                $"📅 Resumen del día {hoy:dd/MM/yyyy}:\n\n" +
+                $"✔️ Presentes: {presentes}\n" +
+                $"⏰ Tarde: {tarde}\n" +
+                $"❌ Ausentes: {ausentes}",
+                "Resumen Diario",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
     }
 }
