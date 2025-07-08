@@ -22,7 +22,7 @@ namespace AsistenciaApp.models
         public string Observaciones { get; set; }
 
         public Empleados(string name, DateTime date, bool present, bool late,
-                        string dni, string area, string position, string email, string observaciones)
+                        string dni, string area, string position, string email)
         {
             Id = _idCounter++;
             Name = name;
@@ -33,7 +33,7 @@ namespace AsistenciaApp.models
             Area = area;
             Position = position;
             Email = email;
-            Observaciones = observaciones;
+           
 
         }
 

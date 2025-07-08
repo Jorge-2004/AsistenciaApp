@@ -13,6 +13,5 @@ namespace AsistenciaApp.Interfaces
         void UpdateRecord(int id, Empleados updatedEmp);
         void DeleteRecord(int id);
         List<Empleados> GetRecords();
-        void AgregarRegistro(Empleados duplicado);
     }
 }

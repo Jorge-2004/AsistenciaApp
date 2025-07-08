@@ -30,11 +30,6 @@ namespace AsistenciaApp.Forms
                 MessageBox.Show("Debe completar al menos el nombre y el DNI.");
                 return;
             }
-            if (!txtDNI.Text.All(char.IsDigit))
-            {
-                MessageBox.Show("El DNI solo debe contener números.", "DNI inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             var emp = new Empleados(
                 txtNombre.Text.Trim(),
@@ -44,8 +39,8 @@ namespace AsistenciaApp.Forms
                 txtDNI.Text.Trim(),
                 txtArea.Text.Trim(),
                 txtCargo.Text.Trim(),
-                txtCorreo.Text.Trim(),
-                txtObservaciones.Text.Trim()
+                txtCorreo.Text.Trim()
+                
             );
 
             attendanceService.AddRecord(emp);
@@ -72,7 +67,7 @@ namespace AsistenciaApp.Forms
                 Area = txtArea.Text.Trim(),
                 Position = txtCargo.Text.Trim(),
                 Email = txtCorreo.Text.Trim(),
-                Observaciones = txtObservaciones.Text.Trim()
+              
             };
 
             attendanceService.UpdateRecord(selectedId, emp);
@@ -218,12 +213,10 @@ namespace AsistenciaApp.Forms
                 Date = DateTime.Now, // Se actualiza a la fecha actual
                 Present = chkPresente.Checked,
                 Late = chkTarde.Checked,
-                Observaciones = txtObservaciones.Text.Trim()
+             
             };
 
-            attendanceService.AgregarRegistro(duplicado);
-            ActualizarVista();
-            MessageBox.Show("Registro duplicado con la fecha actual.");
+          
         }
 
         private void LimpiarCampos()
@@ -234,7 +227,7 @@ namespace AsistenciaApp.Forms
             txtArea.Clear();
             txtCargo.Clear();
             txtCorreo.Clear();
-            txtObservaciones.Clear();
+     
             chkPresente.Checked = false;
             chkTarde.Checked = false;
             dtpFecha.Value = DateTime.Now;
@@ -272,13 +265,6 @@ namespace AsistenciaApp.Forms
             dgvRegistros.SelectionChanged += dgvRegistros_SelectionChanged;
 
             lblTotal.Text = $"Total registros: {data.Count}";
-
-            // Contadores de asistencia
-            int presentes = data.Count(e => e.Present);
-            int faltaron = data.Count(e => !e.Present && !e.Late);
-
-            lblPresentes.Text = $"Presentes: {presentes}";
-            lblFaltaron.Text = $"Faltaron: {faltaron}";
 
             // Actualizar ComboBox nombres
             var nombres = attendanceService.GetRecords().Select(e => e.Name).Distinct().ToList();
@@ -323,7 +309,7 @@ namespace AsistenciaApp.Forms
                 txtCargo.Text = emp.Position;
                 txtCorreo.Text = emp.Email;
                 dtpFecha.Value = emp.Date;
-                txtObservaciones.Text = emp.Observaciones;
+          
                 chkPresente.Checked = emp.Present;
                 chkTarde.Checked = emp.Late;
             }
