@@ -213,10 +213,12 @@ namespace AsistenciaApp.Forms
                 Date = DateTime.Now, // Se actualiza a la fecha actual
                 Present = chkPresente.Checked,
                 Late = chkTarde.Checked,
-             
+                Observaciones = txtObservaciones.Text.Trim()
             };
 
-          
+            attendanceService.AddRecord(duplicado);
+            ActualizarVista();
+            MessageBox.Show("Registro duplicado con la fecha actual.");
         }
 
         private void LimpiarCampos()

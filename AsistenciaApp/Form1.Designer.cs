@@ -36,13 +36,17 @@
             pictureBox2 = new PictureBox();
             btnReporteTXT = new Button();
             btnReporteCSV = new Button();
+            lblPresentes = new Label();
+            lblFaltaron = new Label();
+            btnDuplicar = new Button();
+            txtObservaciones = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvRegistros).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(12, 203);
+            txtNombre.Location = new Point(12, 175);
             txtNombre.Name = "txtNombre";
             txtNombre.PlaceholderText = "Nombre";
             txtNombre.Size = new Size(311, 27);
@@ -50,7 +54,7 @@
             // 
             // txtDNI
             // 
-            txtDNI.Location = new Point(329, 203);
+            txtDNI.Location = new Point(329, 175);
             txtDNI.Name = "txtDNI";
             txtDNI.PlaceholderText = "DNI";
             txtDNI.Size = new Size(186, 27);
@@ -58,7 +62,7 @@
             // 
             // txtArea
             // 
-            txtArea.Location = new Point(521, 203);
+            txtArea.Location = new Point(521, 175);
             txtArea.Name = "txtArea";
             txtArea.PlaceholderText = "Área";
             txtArea.Size = new Size(222, 27);
@@ -66,7 +70,7 @@
             // 
             // txtCargo
             // 
-            txtCargo.Location = new Point(761, 203);
+            txtCargo.Location = new Point(761, 175);
             txtCargo.Name = "txtCargo";
             txtCargo.PlaceholderText = "Cargo";
             txtCargo.Size = new Size(252, 27);
@@ -74,29 +78,15 @@
             // 
             // txtCorreo
             // 
-            txtCorreo.Location = new Point(1037, 203);
+            txtCorreo.Location = new Point(1037, 175);
             txtCorreo.Name = "txtCorreo";
             txtCorreo.PlaceholderText = "Correo";
             txtCorreo.Size = new Size(254, 27);
             txtCorreo.TabIndex = 4;
             // 
-
-
-            this.lblPresentes = new System.Windows.Forms.Label();
-            this.lblPresentes.Location = new System.Drawing.Point(20, 490); // Ajusta ubicación si lo deseas
-            this.lblPresentes.Size = new System.Drawing.Size(200, 23);
-            this.lblPresentes.Text = "Presentes: 0";
-
-            this.lblFaltaron = new System.Windows.Forms.Label();
-            this.lblFaltaron.Location = new System.Drawing.Point(250, 490); // Ajusta ubicación si lo deseas
-            this.lblFaltaron.Size = new System.Drawing.Size(200, 23);
-            this.lblFaltaron.Text = "Faltaron: 0";
-
-            this.Controls.Add(this.lblPresentes);
-            this.Controls.Add(this.lblFaltaron);
             // dtpFecha
             // 
-            dtpFecha.Location = new Point(12, 258);
+            dtpFecha.Location = new Point(9, 218);
             dtpFecha.Name = "dtpFecha";
             dtpFecha.Size = new Size(292, 27);
             dtpFecha.TabIndex = 5;
@@ -104,7 +94,7 @@
             // chkPresente
             // 
             chkPresente.AutoSize = true;
-            chkPresente.Location = new Point(329, 261);
+            chkPresente.Location = new Point(326, 221);
             chkPresente.Name = "chkPresente";
             chkPresente.Size = new Size(87, 24);
             chkPresente.TabIndex = 6;
@@ -114,7 +104,7 @@
             // chkTarde
             // 
             chkTarde.AutoSize = true;
-            chkTarde.Location = new Point(432, 262);
+            chkTarde.Location = new Point(429, 222);
             chkTarde.Name = "chkTarde";
             chkTarde.Size = new Size(67, 24);
             chkTarde.TabIndex = 7;
@@ -123,7 +113,7 @@
             // 
             // btnAgregar
             // 
-            btnAgregar.Location = new Point(505, 258);
+            btnAgregar.Location = new Point(502, 218);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(140, 30);
             btnAgregar.TabIndex = 8;
@@ -132,7 +122,7 @@
             // 
             // btnModificar
             // 
-            btnModificar.Location = new Point(797, 258);
+            btnModificar.Location = new Point(794, 218);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(142, 30);
             btnModificar.TabIndex = 9;
@@ -141,7 +131,7 @@
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(651, 258);
+            btnEliminar.Location = new Point(648, 218);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(140, 30);
             btnEliminar.TabIndex = 10;
@@ -150,7 +140,7 @@
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(959, 258);
+            btnLimpiar.Location = new Point(956, 218);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(142, 30);
             btnLimpiar.TabIndex = 11;
@@ -252,11 +242,48 @@
             btnReporteCSV.UseVisualStyleBackColor = true;
             btnReporteCSV.Click += btnReporteCSV_Click;
             // 
+            // lblPresentes
+            // 
+            lblPresentes.Location = new Point(327, 274);
+            lblPresentes.Name = "lblPresentes";
+            lblPresentes.Size = new Size(200, 23);
+            lblPresentes.TabIndex = 0;
+            lblPresentes.Text = "Presentes: 0";
+            // 
+            // lblFaltaron
+            // 
+            lblFaltaron.Location = new Point(557, 274);
+            lblFaltaron.Name = "lblFaltaron";
+            lblFaltaron.Size = new Size(200, 23);
+            lblFaltaron.TabIndex = 1;
+            lblFaltaron.Text = "Faltaron: 0";
+            // 
+            // btnDuplicar
+            // 
+            btnDuplicar.Location = new Point(814, 269);
+            btnDuplicar.Name = "btnDuplicar";
+            btnDuplicar.Size = new Size(100, 30);
+            btnDuplicar.TabIndex = 2;
+            btnDuplicar.Text = "Duplicar";
+            btnDuplicar.Click += btnDuplicar_Click;
+            // 
+            // txtObservaciones
+            // 
+            txtObservaciones.Location = new Point(9, 274);
+            txtObservaciones.Name = "txtObservaciones";
+            txtObservaciones.PlaceholderText = "Observaciones";
+            txtObservaciones.Size = new Size(300, 27);
+            txtObservaciones.TabIndex = 3;
+            // 
             // MainForm
             // 
             AutoSize = true;
             BackColor = SystemColors.Window;
             ClientSize = new Size(1329, 689);
+            Controls.Add(lblPresentes);
+            Controls.Add(lblFaltaron);
+            Controls.Add(btnDuplicar);
+            Controls.Add(txtObservaciones);
             Controls.Add(btnUltimos);
             Controls.Add(btnReporteTXT);
             Controls.Add(btnReporteCSV);
@@ -293,11 +320,13 @@
         private System.Windows.Forms.TextBox txtArea;
         private System.Windows.Forms.TextBox txtCargo;
         private System.Windows.Forms.TextBox txtCorreo;
+        private System.Windows.Forms.TextBox txtObservaciones;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.CheckBox chkPresente;
         private System.Windows.Forms.CheckBox chkTarde;
         private System.Windows.Forms.Button btnUltimos;
         private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Button btnDuplicar;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnLimpiar;
