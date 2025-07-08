@@ -244,9 +244,9 @@
             // 
             // lblPresentes
             // 
-            lblPresentes.Location = new Point(327, 274);
+            lblPresentes.Location = new Point(429, 274);
             lblPresentes.Name = "lblPresentes";
-            lblPresentes.Size = new Size(200, 23);
+            lblPresentes.Size = new Size(97, 23);
             lblPresentes.TabIndex = 0;
             lblPresentes.Text = "Presentes: 0";
             // 
@@ -272,7 +272,7 @@
             txtObservaciones.Location = new Point(9, 274);
             txtObservaciones.Name = "txtObservaciones";
             txtObservaciones.PlaceholderText = "Observaciones";
-            txtObservaciones.Size = new Size(300, 27);
+            txtObservaciones.Size = new Size(404, 27);
             txtObservaciones.TabIndex = 3;
             // 
             // MainForm

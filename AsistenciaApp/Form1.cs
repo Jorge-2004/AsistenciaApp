@@ -30,6 +30,11 @@ namespace AsistenciaApp.Forms
                 MessageBox.Show("Debe completar al menos el nombre y el DNI.");
                 return;
             }
+            if (!txtDNI.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("El DNI solo debe contener números.", "DNI inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var emp = new Empleados(
                 txtNombre.Text.Trim(),
@@ -39,8 +44,9 @@ namespace AsistenciaApp.Forms
                 txtDNI.Text.Trim(),
                 txtArea.Text.Trim(),
                 txtCargo.Text.Trim(),
-                txtCorreo.Text.Trim()
-                
+                txtCorreo.Text.Trim(),
+               txtObservaciones.Text.Trim()
+
             );
 
             attendanceService.AddRecord(emp);
@@ -67,7 +73,8 @@ namespace AsistenciaApp.Forms
                 Area = txtArea.Text.Trim(),
                 Position = txtCargo.Text.Trim(),
                 Email = txtCorreo.Text.Trim(),
-              
+                Observaciones = txtObservaciones.Text.Trim()
+
             };
 
             attendanceService.UpdateRecord(selectedId, emp);
