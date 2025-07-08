@@ -20,6 +20,8 @@ namespace AsistenciaApp.Forms
             attendanceService = new AsistenciaServicio();
 
             dgvRegistros.AutoGenerateColumns = true;
+            dgvRegistros.ReadOnly = true;
+
             ActualizarVista();
         }
 
